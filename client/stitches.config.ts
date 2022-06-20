@@ -66,6 +66,9 @@ const GlobalStyles = globalCss({
     font: '14px Inter',
     boxSizing: 'border-box',
   },
+  html: {
+    fontSize: '16px',
+  },
   a: {
     color: 'inherit',
     textDecoration: 'none',

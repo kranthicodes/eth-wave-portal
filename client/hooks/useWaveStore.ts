@@ -42,11 +42,11 @@ export default function useWaveStore() {
     null
   );
   const [currentAccount, setCurrentAccount] = React.useState('');
-  const [allWaves, setAllWaves] = React.useState<object[]>([]);
+  const [allWaves, setAllWaves] = React.useState<WaveLogItem[]>([]);
   const [loading, setLoading] = React.useState(false);
 
   // Contract variables
-// Rinkiby '0x04886e35b126c846BF5842d0d3a4549Cab01eBeE';
+  // Rinkiby '0x04886e35b126c846BF5842d0d3a4549Cab01eBeE';
   const contractAddress = '0xa0af65e02c8BEa75363F4CdE7066DdB69522c6C9';
   const contractABI = abiJson.abi;
 
@@ -89,7 +89,7 @@ export default function useWaveStore() {
   };
 
   const sendWave = async () => {
-    const signer = provider?.getSigner();
+    const signer = provider?.getSigner(currentAccount);
     const waveportalContract = new ethers.Contract(
       contractAddress,
       contractABI,
@@ -99,8 +99,8 @@ export default function useWaveStore() {
     setLoading(true);
 
     try {
-      const tx = await waveportalContract.waveAtMe(waveMessage, {
-        gasLimit: 100000,
+      const tx = await waveportalContract.wave(waveMessage, {
+        gasLimit: 150000,
       });
 
       console.log(
@@ -128,12 +128,12 @@ export default function useWaveStore() {
 
     const waves = await waveportalContract.getAllWaves();
 
-    let wavesCleaned: object[] = [];
+    let wavesCleaned: WaveLogItem[] = [];
 
     waves.forEach((wave: Wave) => {
       wavesCleaned.push({
         address: wave.waver,
-        timestamp: new Date(wave.timestamp * 1000),
+        timestamp: new Date(wave.timestamp * 1000) as unknown as string,
         message: wave.message,
       });
     });
