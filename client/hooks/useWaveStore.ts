@@ -52,13 +52,15 @@ export default function useWaveStore() {
 
   React.useEffect(() => {
     const exodusProvider = getExodusProvider();
-    const provider = new ethers.providers.Web3Provider(exodusProvider!);
+    if (exodusProvider) {
+      const provider = new ethers.providers.Web3Provider(exodusProvider);
 
-    setProvider(provider);
+      setProvider(provider);
 
-    provider.send('eth_accounts', []).then((accounts) => {
-      setCurrentAccount(accounts[0]);
-    });
+      provider.send('eth_accounts', []).then((accounts) => {
+        setCurrentAccount(accounts[0]);
+      });
+    }
   }, []);
 
   React.useEffect(() => {
