@@ -1,8 +1,12 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+
+import { MessageBox } from '../components/MessageBox';
+import useWaveStore from '../hooks/useWaveStore';
 import { styled } from '../stitches.config';
 
 const Home: NextPage = () => {
+  const { currentAccount, connectWallet } = useWaveStore();
   return (
     <Layout>
       <Head>
@@ -17,6 +21,9 @@ const Home: NextPage = () => {
           <br />
           Connect your wallet, write your message, and then wave 👋.
         </SubHeading>
+        <Box css={{ margin: '0 auto' }}>
+          <MessageBox account={currentAccount} connect={connectWallet} />
+        </Box>
       </Box>
     </Layout>
   );
