@@ -7,7 +7,14 @@ import useWaveStore from '../hooks/useWaveStore';
 import { styled } from '../stitches.config';
 
 const Home: NextPage = () => {
-  const { currentAccount, allWaves, connectWallet, sendWave } = useWaveStore();
+  const {
+    currentAccount,
+    allWaves,
+    waveMessage,
+    connectWallet,
+    sendWave,
+    setWaveMessage,
+  } = useWaveStore();
   return (
     <Layout>
       <Head>
@@ -24,6 +31,8 @@ const Home: NextPage = () => {
         </SubHeading>
         <Box css={{ margin: '0 auto' }}>
           <MessageBox
+            waveMessage={waveMessage}
+            setWaveMessage={setWaveMessage}
             sendWave={sendWave}
             account={currentAccount}
             connect={connectWallet}

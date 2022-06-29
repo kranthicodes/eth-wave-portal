@@ -27,9 +27,7 @@ export default function WaveList({ items }: Props) {
           </WaveLogItem>
           <WaveLogItem>
             <ItemHeading>Waved at</ItemHeading>
-            <ItemValue type='timestamp'>
-              {timestamp.slice(0, 19).replace('T', ' ')}
-            </ItemValue>
+            <ItemValue type='timestamp'>{timestamp.toString()}</ItemValue>
           </WaveLogItem>
           <WaveLogItem type='message'>
             <ItemHeading>Message</ItemHeading>

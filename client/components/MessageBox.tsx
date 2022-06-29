@@ -1,11 +1,21 @@
 import { styled } from '../stitches.config';
 
-export const MessageBox = ({ connect, account, sendWave }: any) => {
+export const MessageBox = ({
+  connect,
+  account,
+  sendWave,
+  waveMessage,
+  setWaveMessage,
+}: any) => {
   if (!account)
     return <ConnectBtn onClick={() => connect()}>Connect to Exodus</ConnectBtn>;
   return (
     <MessageAreaWrapper>
-      <TextArea placeholder='Enter your message here :)'></TextArea>
+      <TextArea
+        value={waveMessage}
+        onChange={(evt) => setWaveMessage(evt.target.value)}
+        placeholder='Enter your message here :)'
+      ></TextArea>
       <WaveButton onClick={sendWave}>Wave at me!</WaveButton>
     </MessageAreaWrapper>
   );
