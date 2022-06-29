@@ -51,16 +51,20 @@ export default function useWaveStore() {
   const contractABI = abiJson.abi;
 
   React.useEffect(() => {
-    const exodusProvider = getExodusProvider();
-    if (exodusProvider) {
-      const provider = new ethers.providers.Web3Provider(exodusProvider);
+    const onLoad = async () => {
+      const exodusProvider = getExodusProvider();
+      if (exodusProvider) {
+        const provider = new ethers.providers.Web3Provider(exodusProvider);
 
-      setProvider(provider);
+        setProvider(provider);
 
-      provider.send('eth_accounts', []).then((accounts) => {
-        setCurrentAccount(accounts[0]);
-      });
-    }
+        provider.send('eth_accounts', []).then((accounts) => {
+          setCurrentAccount(accounts[0]);
+        });
+      }
+    };
+    window.addEventListener('load', onLoad);
+    return () => window.removeEventListener('load', onLoad);
   }, []);
 
   React.useEffect(() => {
