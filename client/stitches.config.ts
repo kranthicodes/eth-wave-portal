@@ -21,6 +21,7 @@ export const { styled, getCssText, globalCss } = createStitches({
       blue300: '#64b5f6',
       blue400: '#42a5f5',
       blue500: '#2196f3',
+      slate: 'rgb(16,24,50)',
     },
     fonts: {
       sans: 'Inter, sans-serif',

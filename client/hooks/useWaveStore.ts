@@ -3,27 +3,6 @@ import { ethers, providers } from 'ethers';
 
 import abiJson from '../utils/WavePortal.json';
 
-interface RequestArguments {
-  method: string;
-  params?: unknown[] | object;
-}
-
-type Wave = {
-  waver: string;
-  timestamp: number;
-  message: string;
-};
-
-type ExodusEvent = 'accountsChanged' | 'connect' | 'disconnect';
-
-interface EthereumProvider {
-  isConnected: boolean | null;
-  request: (args: RequestArguments) => Promise<unknown>;
-  on: (event: ExodusEvent, handler: (args: any) => void) => void;
-  addListener: (event: ExodusEvent, handler: (args: any) => void) => void;
-  removeListener: (event: ExodusEvent) => void;
-}
-
 const getExodusProvider = (): EthereumProvider | undefined => {
   if ('exodus' in window) {
     const anyWindow: any = window;
@@ -51,18 +30,6 @@ export default function useWaveStore() {
   const contractABI = abiJson.abi;
 
   React.useEffect(() => {
-    const onLoad = async () => {
-      const exodusProvider = getExodusProvider();
-      if (exodusProvider) {
-        const provider = new ethers.providers.Web3Provider(exodusProvider);
-
-        setProvider(provider);
-
-        provider.send('eth_accounts', []).then((accounts) => {
-          setCurrentAccount(accounts[0]);
-        });
-      }
-    };
     window.addEventListener('load', onLoad);
     return () => window.removeEventListener('load', onLoad);
   }, []);
@@ -73,10 +40,23 @@ export default function useWaveStore() {
     }
   }, [currentAccount]);
 
+  const onLoad = async () => {
+    const exodusProvider = getExodusProvider();
+    if (exodusProvider) {
+      const provider = new ethers.providers.Web3Provider(exodusProvider);
+
+      setProvider(provider);
+
+      provider.send('eth_accounts', []).then((accounts) => {
+        setCurrentAccount(accounts[0]);
+      });
+    }
+  };
+
   // Connect to metamask
   const connectWallet = async () => {
     if (!provider) {
-      window.open('https://exodus.com', '_blank');
+      onLoad();
       return;
     }
 
