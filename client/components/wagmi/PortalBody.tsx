@@ -8,11 +8,11 @@ import {
   useContractWrite,
 } from 'wagmi';
 
-import { MessageBox } from '../../../components/MessageBox';
-import NavBar from '../../../components/NavBar';
-import WaveList from '../../../components/WaveList';
-import { styled } from '../../../stitches.config';
-import abiJson from '../../../utils/WavePortal.json';
+import { MessageBox } from '../MessageBox';
+import NavBar from '../NavBar';
+import WaveList from '../WaveList';
+import { styled } from '../../stitches.config';
+import abiJson from '../../utils/WavePortal.json';
 
 const contractAddress = '0xa0af65e02c8BEa75363F4CdE7066DdB69522c6C9';
 const contractABI = abiJson.abi;

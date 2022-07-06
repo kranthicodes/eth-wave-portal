@@ -5,7 +5,7 @@ import { configureChains, chain, createClient, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 
 import { styled } from '../../stitches.config';
-import PortalBody from './components/PortalBody';
+import PortalBody from '../../components/wagmi/PortalBody';
 
 const { chains, provider } = configureChains(
   [chain.mainnet],
