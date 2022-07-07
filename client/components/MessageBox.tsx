@@ -16,7 +16,9 @@ export const MessageBox = ({
         onChange={(evt) => setWaveMessage(evt.target.value)}
         placeholder='Enter your message here :)'
       ></TextArea>
-      <WaveButton onClick={sendWave}>Wave at me!</WaveButton>
+      <WaveButton disabled={!waveMessage.length} onClick={sendWave}>
+        Wave at me!
+      </WaveButton>
     </MessageAreaWrapper>
   );
 };
