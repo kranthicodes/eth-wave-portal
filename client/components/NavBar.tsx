@@ -28,9 +28,9 @@ export default function NavBar() {
     <NavContainer>
       <NavMenu>
         {MENU_ITEMS.map((menuItem) => (
-          <NavItem key={menuItem.id} variant={isActive(menuItem.path)}>
-            <Link href={menuItem.path}>{menuItem.name}</Link>
-          </NavItem>
+          <Link key={menuItem.id} href={menuItem.path}>
+            <NavItem variant={isActive(menuItem.path)}>{menuItem.name}</NavItem>
+          </Link>
         ))}
       </NavMenu>
     </NavContainer>
