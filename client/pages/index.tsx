@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import { MessageBox } from '../components/MessageBox';
+import { ProxyBox } from '../components/ProxyBox'
 import NavBar from '../components/NavBar';
 import WaveList from '../components/WaveList';
 import useWaveStore from '../hooks/useWaveStore';
@@ -15,8 +16,10 @@ const Home: NextPage = () => {
     connectWallet,
     sendWave,
     setWaveMessage,
+    testProxyRequests,
+    sendOrSignTransaction,
   } = useWaveStore();
-  
+
   return (
     <Layout>
       <Head>
@@ -42,6 +45,13 @@ const Home: NextPage = () => {
             <StatusLabel color='danger'>disconnected</StatusLabel>
           )}
         </SubHeading>
+        {currentAccount && <Box css={{ margin: '0 auto' }}>
+          <ProxyBox
+            account={currentAccount}
+            testProxyRequests={testProxyRequests}
+            sendOrSignTransaction={sendOrSignTransaction}
+          />
+        </Box>}
         <Box css={{ margin: '0 auto' }}>
           <MessageBox
             waveMessage={waveMessage}
